@@ -276,7 +276,7 @@ class Bullet(Tank):
 
 
 class Two_Life_Enemy:    
-    
+    #This is an enemy that requires two shots to kill
     def __init__(self, w, x, y,is_big = True):
            
         self.w = w
@@ -292,16 +292,19 @@ class Two_Life_Enemy:
             self.create_small()
         self.move()
     def create_big(self):
+        #This creates the first life of the enemy
         self.body = g.Rectangle(g.Point(self.x, self.y), g.Point(self.x + 100, self.y + 100))
         self.body.setFill('lavender')
         self.body.draw(self.w)
     
     def create_small(self):
+        #This creates the second life of the enemy
         self.body = g.Rectangle(g.Point(self.x, self.y), g.Point(self.x + 50, self.y + 50))
         self.body.setFill('teal')
         self.body.draw(self.w)
         
     def move(self):
+        #This is the move function for the big square it moves diagonally while the little square moves straight down 
         if self.is_big == True:
             
             if self.body.getCenter().getX() <= 100:
@@ -313,6 +316,7 @@ class Two_Life_Enemy:
             self.body.move(0, .5)
         self.w.after(10, self.move)
     def hit(self):
+        #This function respawns the little square after getting hit with a bullet
         global score
         self.body.undraw()
         if self.is_big == True:
@@ -326,6 +330,7 @@ class Two_Life_Enemy:
         B.score.setText(f"Your Score: {score}")
         B.score.draw(self.w)
     def enemywin(self):
+        #This is the function that removes a life and the enemy if it gets to the line of death
         global enemycounter
         global EnemyList
         global E
@@ -341,6 +346,7 @@ class Two_Life_Enemy:
 
 
 def spawnenemy():
+    #This is the function that spawns 4 enemies every 15 seconds
     global EnemyList
     global Q
     global E
@@ -359,6 +365,7 @@ def spawnenemy():
     w.after(15000,spawnenemy)
 
 def main():
+    #The function to actually run the game
     global EnemyList, B, enemycounter, E, Q, w
     w = g.GraphWin('GAME!!', 1200,800)
     w.setBackground('black')
